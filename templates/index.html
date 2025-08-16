@@ -5,26 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>modot</title>
 
-  <!-- Google Sans Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- App styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-  <!-- GitHub Markdown Style -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/github-markdown-light.css') }}">
 </head>
 <body>
   <header class="app-header">
     <div class="app-header__inner">
-      <!-- Left side of header -->
       <div class="header-group header-group--left">
         <h1 class="app-title">modot</h1>
       </div>
       
-      <!-- Center group for main controls -->
       <div class="header-group header-group--center">
         <button id="btn-toggle-view" class="view-btn">Preview</button>
         <button id="btn-side-by-side" class="view-btn icon-btn" title="Side-by-Side View">
@@ -32,7 +27,6 @@
         </button>
       </div>
 
-      <!-- Right side of header for download controls -->
       <div class="header-group header-group--right">
         <input type="text" id="filename-input" class="filename-input" placeholder="Untitled">
         <button id="btn-download" class="view-btn icon-btn" title="Download file">
@@ -45,14 +39,11 @@
   </header>
 
   <main class="app-main">
-    <!-- Wrapper for Editor and Preview Panes -->
     <div id="editor-wrapper" class="split-root">
-      <!-- Editor Pane -->
       <div id="edit" class="pane pane--editor">
         <div id="editor" class="editor-surface"></div>
       </div>
 
-      <!-- Divider -->
       <div
         id="split-divider"
         class="divider"
@@ -61,17 +52,14 @@
         aria-label="Resize editor and preview">
       </div>
 
-      <!-- Preview Pane -->
       <div id="preview" class="pane pane--preview">
         <div id="output" class="markdown-body output-surface"></div>
       </div>
     </div>
   </main>
 
-  <!-- Storehouse.js for local storage management -->
   <script src="https://cdn.jsdelivr.net/npm/storehouse-js@1.0.3/dist/storehouse.min.js"></script>
 
-  <!-- Main Application Logic (ESM) -->
   <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-// Import necessary libraries from CDN (ESM)
 import * as monaco from 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/+esm';
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked@5.1.2/lib/marked.esm.js';
 import DOMPurify from 'https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.es.js';
@@ -12,7 +11,6 @@ const init = () => {
     };
   }
 
-  // --- Configuration ---
   const NAMESPACE = 'com.markdownlivepreview';
   const KEY_LAST_STATE = 'last_state';
   const KEY_SPLIT_RATIO = 'split_ratio';
@@ -31,7 +29,6 @@ Welcome to your new streamlined Markdown editor!
 - **Layout Modes**: Switch between Edit, Preview, and Side-by-Side views.
 `;
 
-  // --- DOM Element References ---
   const editorPane = document.getElementById('edit');
   const previewPane = document.getElementById('preview');
   const divider = document.getElementById('split-divider');
@@ -41,15 +38,12 @@ Welcome to your new streamlined Markdown editor!
   const filenameInput = document.getElementById('filename-input');
   const btnDownload = document.getElementById('btn-download');
 
-
-  // --- Monaco Editor Environment Setup (no workers) ---
   self.MonacoEnvironment = {
     getWorker() { return new Proxy({}, { get: () => () => {} }); }
   };
 
   let editor;
 
-  /** Initialize Monaco editor */
   const setupEditor = () => {
     editor = monaco.editor.create(document.querySelector('#editor'), {
       value: '',
@@ -76,7 +70,6 @@ Welcome to your new streamlined Markdown editor!
     return editor;
   };
 
-  /** Render Markdown -> sanitized HTML */
   const render = (markdown) => {
     const options = { headerIds: false, mangle: false, gfm: true, breaks: true };
     const html = marked.parse(markdown, options);
@@ -84,11 +77,9 @@ Welcome to your new streamlined Markdown editor!
     document.getElementById('output').innerHTML = sanitized;
   };
 
-  /** Load/save editor content */
   const loadContent = () => window.Storehouse.getItem(NAMESPACE, KEY_LAST_STATE);
   const saveContent = (content) => window.Storehouse.setItem(NAMESPACE, KEY_LAST_STATE, content);
 
-  /** Load/save split ratio */
   const loadRatio = () => {
     const v = window.Storehouse.getItem(NAMESPACE, KEY_SPLIT_RATIO);
     const n = Number(v);
@@ -96,7 +87,6 @@ Welcome to your new streamlined Markdown editor!
   };
   const saveRatio = (r) => window.Storehouse.setItem(NAMESPACE, KEY_SPLIT_RATIO, String(r));
 
-  /** Apply sizes given a ratio (0..1), clamped by min widths */
   const applyRatio = (ratio) => {
     const rect = wrapper.getBoundingClientRect();
     const dividerW = divider.getBoundingClientRect().width || 4;
@@ -110,7 +100,6 @@ Welcome to your new streamlined Markdown editor!
     if (editor) requestAnimationFrame(() => editor.layout());
   };
 
-  /** Setup resizable divider using Pointer Events + capture */
   const setupDivider = () => {
     let isDragging = false;
     let ratio = loadRatio();
@@ -179,7 +168,6 @@ Welcome to your new streamlined Markdown editor!
     window.Storehouse.setItem(NAMESPACE, KEY_VIEW_MODE, mode);
   };
 
-  /** Event handler for the main toggle button */
   const handleToggleClick = () => {
     const isPreview = wrapper.classList.contains('mode-preview');
     const isEdit = wrapper.classList.contains('mode-edit');
@@ -193,7 +181,6 @@ Welcome to your new streamlined Markdown editor!
     }
   };
 
-  /** Handles the download functionality */
   const handleDownload = () => {
     if (!editor) return;
 
@@ -218,26 +205,21 @@ Welcome to your new streamlined Markdown editor!
     URL.revokeObjectURL(link.href);
   };
 
-  /** Setup event listeners for all buttons */
   const setupButtons = () => {
     btnToggleView.addEventListener('click', handleToggleClick);
     btnSideBySide.addEventListener('click', () => setViewMode('side-by-side'));
     btnDownload.addEventListener('click', handleDownload);
   };
 
-  /** Setup keyboard shortcuts */
   const setupKeyboardShortcuts = () => {
-    // FIXED: Attach listener to the window during the CAPTURE phase (third argument is true).
-    // This ensures the listener fires before any element-specific listeners can stop it.
     window.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
         e.preventDefault(); 
         handleToggleClick(); 
       }
-    }, true); // <-- The 'true' here is the crucial fix.
+    }, true);
   };
 
-  // ----- Entry point -----
   applyRatio(loadRatio());
   setupEditor();
 

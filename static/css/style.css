@@ -1,6 +1,5 @@
-/* ===== App Base (no Tailwind) ===== */
 :root{
-  /* User-provided color scheme */
+
   --bg: #ffffffff;
   --panel: #3a506b;
   --header: #0b132b;
@@ -31,7 +30,6 @@ body.dragging {
   user-select: none;
 }
 
-/* ===== Header ===== */
 .app-header{
   background: var(--header);
   border-bottom: 1px solid var(--header-border);
@@ -75,7 +73,6 @@ body.dragging {
 }
 
 
-/* View Mode Buttons & Download Controls */
 .view-btn {
   background-color: var(--btn-bg);
   color: var(--text);
@@ -121,12 +118,12 @@ body.dragging {
 }
 
 .filename-input {
-  background-color: #44fae8ff; /* CHANGED */
+  background-color: #44fae8ff;
   border: none;
   border-radius: 0.375rem;
   height: 2.5rem;
   padding: 0 0.75rem;
-  color: #000000; /* CHANGED */
+  color: #000000;
   font-family: var(--font-sans);
   font-size: 0.875rem;
   width: 10rem;
@@ -134,7 +131,7 @@ body.dragging {
 }
 
 .filename-input::placeholder {
-  color: #000000; /* CHANGED */
+  color: #000000;
   opacity: 0.6;
 }
 
@@ -144,14 +141,12 @@ body.dragging {
 }
 
 
-/* ===== Main Area ===== */
 .app-main{
   flex-grow: 1;
   display: flex;
   overflow: hidden;
 }
 
-/* Root split container */
 .split-root{
   width: 100%;
   height: 100%;
@@ -167,7 +162,6 @@ body.dragging {
 }
 
 
-/* Panes */
 .pane{
   height: 100%;
   background: #ffffff;
@@ -184,13 +178,11 @@ body.dragging {
 }
 
 
-/* Left: Monaco editor container fills */
 .editor-surface{
   flex: 1;
   min-height: 0;
 }
 
-/* Right: Preview output scrolls */
 .output-surface{
   flex: 1;
   overflow-y: auto;
@@ -203,7 +195,6 @@ body.dragging {
   width: 100%;
 }
 
-/* ===== Divider ===== */
 .divider{
   flex: 0 0 0.25rem;
   background: var(--divider);
@@ -227,7 +218,6 @@ body.dragging {
   cursor: col-resize;
 }
 
-/* ===== View Modes ===== */
 .split-root.mode-edit .pane--preview,
 .split-root.mode-edit .divider {
   display: none;
@@ -247,7 +237,6 @@ body.dragging {
 }
 
 
-/* Nicer scrollbars for BOTH panes */
 .output-surface::-webkit-scrollbar,
 .editor-surface .monaco-scrollable-element::-webkit-scrollbar {
   width: 0.625rem;
