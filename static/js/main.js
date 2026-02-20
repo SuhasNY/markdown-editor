@@ -232,7 +232,7 @@ Welcome to your new streamlined Markdown editor!
   setupButtons();
   setupKeyboardShortcuts();
   
-  setViewMode('edit');
+  setViewMode('side-by-side'); // Default to side-by-side view
   
   wrapper.classList.add('initialized');
 };
